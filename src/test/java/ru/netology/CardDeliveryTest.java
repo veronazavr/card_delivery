@@ -45,7 +45,8 @@ public class CardDeliveryTest {
         form.$("[data-test-id='phone'] input").setValue("+79099678181");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        form.$("[data-test-id='name'] .input__sub").shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
+        form.$("[data-test-id='name'] .input__sub").shouldBe(visible)
+                .shouldHave(text("Поле обязательно для заполнения"));
     }
 
  @Test
@@ -58,6 +59,7 @@ public class CardDeliveryTest {
      form.$("[data-test-id='name'] input").setValue("Вероника Белова");
      form.$("[data-test-id='agreement']").click();
      form.$(".button__content").click();
-     form.$("[data-test-id='phone'] .input__sub").shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
+     form.$("[data-test-id='phone'] .input__sub").shouldBe(visible)
+             .shouldHave(text("Поле обязательно для заполнения"));
  }
  }
