@@ -29,12 +29,65 @@ public class CardDeliveryTest {
         form.$("[data-test-id='phone'] input").setValue("+79099678181");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        $("[data-test-id='notification'] .notification__content").waitUntil(visible, 15000)
+        $("[data-test-id='notification'].notification__content").waitUntil(visible, 15000)
                 .shouldHave(text(meetingDay(5)));
 
 
 }
+    @Test
+    void testNegativeCityEmpty(){
+        open("http://localhost:9999/");
+        SelenideElement form = $("[action='/']");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        form.$("[data-test-id='date'] input").setValue(meetingDay(3));
+        form.$("[data-test-id='name'] input").setValue("Вероника Белова");
+        form.$("[data-test-id='phone'] input").setValue("+79055558899");
+        form.$("[data-test-id='agreement']").click();
+        form.$(".button__content").click();
+        form.$("[data-test-id='city'].input_invalid .input__sub").shouldBe(visible)
+                .shouldHave(text("Поле обязательно для заполнения"));
+    }
+    @Test
+    void testNegativeCityNotValid(){
+        open("http://localhost:9999/");
+        SelenideElement form = $("[action='/']");
+        form.$("[data-test-id='city'] input").setValue("Москва1");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        form.$("[data-test-id='date'] input").setValue(meetingDay(3));
+        form.$("[data-test-id='name'] input").setValue("Вероника Белова");
+        form.$("[data-test-id='phone'] input").setValue("+79055558899");
+        form.$("[data-test-id='agreement']").click();
+        form.$(".button__content").click();
+        form.$("[data-test-id='city'] .input__sub").shouldBe(visible)
+                .shouldHave(text("Доставка в выбранный город недоступна"));
+    }
+    @Test
+    void testNegativeDateEmpty(){
+        open("http://localhost:9999/");
+        SelenideElement form = $("[action='/']");
+        form.$("[data-test-id='city'] input").setValue("Москва");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        form.$("[data-test-id='name'] input").setValue("Вероника Белова");
+        form.$("[data-test-id='phone'] input").setValue("+79055558899");
+        form.$("[data-test-id='agreement']").click();
+        form.$(".button__content").click();
+        form.$("[data-test-id='date'] .input__sub").shouldBe(visible).shouldHave(text("Неверно введена дата"));
+    }
 
+    @Test
+    void testNegativeDateLess3day(){
+        open("http://localhost:9999/");
+        SelenideElement form = $("[action='/']");
+        form.$("[data-test-id='city'] input").setValue("Москва");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        form.$("[data-test-id='date'] input").setValue(meetingDay(2));
+        form.$("[data-test-id='name'] input").setValue("Вероника Белова");
+        form.$("[data-test-id='phone'] input").setValue("+79055558899");
+        form.$("[data-test-id='agreement']").click();
+        form.$(".button__content").click();
+        form.$("[data-test-id='date'] .input__sub").shouldBe(visible)
+                .shouldHave(text("Заказ на выбранную дату невозможен"));
+    }
     @Test
     void testNegativeNameEmpty(){
         open("http://localhost:9999/");
@@ -62,4 +115,17 @@ public class CardDeliveryTest {
      form.$("[data-test-id='phone'] .input__sub").shouldBe(visible)
              .shouldHave(text("Поле обязательно для заполнения"));
  }
+    @Test
+    void testNegativeAgreementEmpty(){
+        open("http://localhost:9999/");
+        SelenideElement form = $("[action='/']");
+        form.$("[data-test-id='city'] input").setValue("Москва");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        form.$("[data-test-id='date'] input").setValue(meetingDay(3));
+        form.$("[data-test-id='name'] input").setValue("Вероника Белова");
+        form.$("[data-test-id='phone'] input").setValue("+79055558899");
+        form.$(".button__content").click();
+        form.$("[data-test-id='agreement'].input_invalid").shouldBe(visible)
+                .shouldHave(text("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
+    }
  }
