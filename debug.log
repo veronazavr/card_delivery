@@ -1,0 +1,2 @@
+[1218/205354.170:ERROR:directory_reader_win.cc(43)] FindFirstFile: Системе не удается найти указанный путь. (0x3)
+[1218/205354.171:ERROR:prune_crash_reports.cc(36)] PruneCrashReportDatabase: Failed to get pending reports
