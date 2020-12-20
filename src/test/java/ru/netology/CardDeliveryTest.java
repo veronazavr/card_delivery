@@ -35,21 +35,19 @@ public class CardDeliveryTest {
 
 }
 
- @Test
+    @Test
+    void testNegativeNameEmpty(){
+        open("http://localhost:9999/");
+        SelenideElement form = $("[action='/']");
+        form.$("[data-test-id='city'] input").setValue("Москва");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        form.$("[data-test-id='date'] input").setValue(meetingDay(3));
+        form.$("[data-test-id='phone'] input").setValue("+79099678181");
+        form.$("[data-test-id='agreement']").click();
+        form.$(".button__content").click();
+        form.$("[data-test-id='name'] .input__sub").shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
+    }
 
- void testNegativeAgreementEmpty() {
-     open("http://localhost:9999/");
-     SelenideElement form = $("[action='/']");
-     form.$("[data-test-id='city'] input").setValue("Москва");
-     form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
-     form.$("[data-test-id='date'] input").setValue(meetingDay(5));
-     form.$("[data-test-id='name'] input").setValue("Вероника Белова");
-     form.$("[data-test-id='phone'] input").setValue("+79099678181");
-     form.$("[data-test-id='agreement']").click();
-     form.$(".button__content").click();
-     form.$("[data-test-id='agreement'].input_invalid").shouldBe(visible)
-             .shouldHave(text("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
- }
  @Test
  void testNegativePhoneEmpty(){
      open("http://localhost:9999/");
