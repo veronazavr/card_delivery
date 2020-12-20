@@ -29,7 +29,8 @@ public class CardDeliveryTest {
         form.$("[data-test-id='phone'] input").setValue("+79099678181");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        $("[data-test-id='notification'] .notification__content").waitUntil(visible, 15000).shouldHave(text(meetingDay(5)));
+        $("[data-test-id='notification'] .notification__content").waitUntil(visible, 15000)
+                .shouldHave(text(meetingDay(5)));
 
 
 }
@@ -46,7 +47,8 @@ public class CardDeliveryTest {
      form.$("[data-test-id='phone'] input").setValue("+79099678181");
      form.$("[data-test-id='agreement']").click();
      form.$(".button__content").click();
-     form.$("[data-test-id='agreement'].input_invalid").shouldBe(visible).shouldHave(text("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
+     form.$("[data-test-id='agreement'].input_invalid").shouldBe(visible)
+             .shouldHave(text("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
  }
  @Test
  void testNegativePhoneEmpty(){
